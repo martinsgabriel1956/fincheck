@@ -17,6 +17,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({ placeholder, na
         name={name}
         id={inputId}
         ref={ref}
+        autoComplete="on"
         className={cn(
           "peer h-[52px] w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-gray-800 outline-none transition-all placeholder-shown:pt-0 focus:border-gray-800",
           error && "!border-red-900",

@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { authService } from "@/app/services/authService";
 import { SignupParams } from "@/app/services/authService/signup";
+import { useAuth } from "@/app/hooks/useAuth";
 
 const registerFormSchema = zod.object({
   name: zod.string().nonempty("Nome é obrigatório"),
@@ -30,10 +31,12 @@ export function useRegisterController() {
     }
   });
 
+  const { signin } = useAuth();
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
-      console.log({ accessToken });
+      signin(accessToken);
     } catch (err) {
       toast.error("Ocorreu um erro ao criar sua conta");
     }

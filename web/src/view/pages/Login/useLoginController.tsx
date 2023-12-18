@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { authService } from "@/app/services/authService";
 import { SigninParams } from "@/app/services/authService/signin";
+import { useAuth } from "@/app/hooks/useAuth";
 
 const loginFormSchema = zod.object({
   email: zod.string()
@@ -32,10 +33,12 @@ export function useLoginController() {
     }
   });
 
+  const { signin } = useAuth();
+
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data);
-      console.log({ accessToken });
+      signin(accessToken);
     } catch (err) {
       toast.error("Credenciais invalidas");
     }
