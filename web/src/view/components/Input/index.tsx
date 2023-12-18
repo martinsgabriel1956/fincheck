@@ -1,26 +1,42 @@
-import { ComponentProps } from "react";
+import { ComponentProps, forwardRef } from "react";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
+import { cn } from "@/app/utils/cn";
 
 interface InputProps extends ComponentProps<"input"> {
   name: string;
-};
+  error?: string
+}
 
-export function Input({ placeholder, name, id, ...props }: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(({ placeholder, name, id, error, className, ...props }, ref) => {
   const inputId = name ?? id;
 
   return (
     <div className="relative">
       <input
         {...props}
+        name={name}
         id={inputId}
-        className="w-full px-3 bg-white border border-gray-500 rounded-lg h-[52px] text-gray-800 pt-4 peer placeholder-shown:pt-0 focus:border-gray-800 transition-all outline-none"
+        ref={ref}
+        className={cn(
+          "peer h-[52px] w-full rounded-lg border border-gray-500 bg-white px-3 pt-4 text-gray-800 outline-none transition-all placeholder-shown:pt-0 focus:border-gray-800",
+          error && "!border-red-900",
+          className
+        )}
         placeholder=" "
       />
       <label
         htmlFor={inputId}
-        className="text-gray-700 text-xs top-2 absolute left-[13px] pointer-events-none peer-placeholder-shown:text-base peer-placeholder-shown:top-3.5 transition-all"
+        className="pointer-events-none absolute left-[13px] top-2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base"
       >
         {placeholder}
       </label>
+
+      {error && (
+        <div className="mt-2 flex items-center gap-2 text-red-900">
+          <CrossCircledIcon />
+          <span className="text-xs"> {error}</span>
+        </div>
+      )}
     </div>
   );
-}
+});

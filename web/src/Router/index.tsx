@@ -13,8 +13,10 @@ export function Router() {
             <Route path="/register" element={<Register />} />
           </Route>
         </Route>
-        <Route path="/" element={<Dashboard />} />
+        <Route element={<AuthGuard isPrivate />}>
+          <Route path="/" element={<Dashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
