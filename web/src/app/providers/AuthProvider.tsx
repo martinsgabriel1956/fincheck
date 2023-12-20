@@ -4,8 +4,8 @@ import { toast } from "react-hot-toast";
 import { AuthContext } from "../contexts/AuthContext";
 import { localStorageKeys } from "../config/localStorageKeys";
 import { usersService } from "../services/usersService";
-import { LaunchScreen } from "@/view/components/LaunchScreen";
 import { queryClient } from "../services/queryClient";
+import { LaunchScreen } from "@/view/components";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [signedIn, setSignedIn] = useState<boolean>(() => {
