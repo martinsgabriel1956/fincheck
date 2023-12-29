@@ -1,6 +1,5 @@
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FilterIcon, Spinner, TransactionsIcon } from "@/view/components";
+import { FilterIcon, Spinner } from "@/view/components";
 import { MONTHS } from "@/app/config/constants";
 import { SliderOption } from "./SliderOption";
 import { SliderNavigation } from "./SliderNavigation";
@@ -9,9 +8,19 @@ import { cn } from "@/app/utils/cn";
 import { CategoryIcon } from "@/view/components/icons/categories/CategoryIcon";
 import { useTransactionsController } from "./useTransactionsController";
 import emptyStateImage from "@/assets/img/empty-state.svg";
+import { TransactionTypeDropdown } from "./TransactionTypeDropdown";
+import { FiltersModal } from "./FiltersModal";
 
 export function Transactions() {
-  const { areValuesVisible, isInitialLoading, transactions, isLoading } = useTransactionsController();
+  const {
+    areValuesVisible,
+    isInitialLoading,
+    transactions,
+    isLoading,
+    isFiltersModalOpen,
+    handleOpenFiltersModal,
+    handleCloseFiltersModal
+  } = useTransactionsController();
   const hasTransactions = transactions.length > 0;
 
   return (
@@ -24,15 +33,18 @@ export function Transactions() {
 
       {!isInitialLoading && (
         <>
+          <FiltersModal
+            open={isFiltersModalOpen}
+            onClose={handleCloseFiltersModal}
+          />
           <header className="">
             <div className="flex items-center justify-between">
-              <button className="flex items-center gap-2">
-                <TransactionsIcon />
-                <span className="text-sm font-medium tracking-[-0.5px] text-gray-800">Transações</span>
-                <ChevronDownIcon className="text-gray-900" />
-              </button>
+              <TransactionTypeDropdown />
 
-              <button className="">
+              <button
+                className=""
+                onClick={handleOpenFiltersModal}
+              >
                 <FilterIcon />
               </button>
             </div>
@@ -125,4 +137,5 @@ export function Transactions() {
     </div>
   );
 }
+
 
