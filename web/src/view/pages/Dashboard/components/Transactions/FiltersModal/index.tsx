@@ -1,7 +1,6 @@
-import { cn } from "@/app/utils/cn";
-import { Button } from "@/view/components";
-import { Modal } from "@/view/components/Modal";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { cn } from "@/app/utils/cn";
+import { Button, Modal } from "@/view/components";
 import { useFiltersModal } from "./useFiltersModal";
 
 interface FiltersModalProps {

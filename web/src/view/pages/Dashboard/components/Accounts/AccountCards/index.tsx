@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/app/utils/formatCurrency";
-import { BankAccountTypeIcon } from "@/view/components/BankAccountTypeIcon";
+import { BankAccountTypeIcon } from "@/view/components";
 import { useAccountsController } from "../useAccountsController";
 import { cn } from "@/app/utils/cn";
 

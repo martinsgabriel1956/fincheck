@@ -1,7 +1,8 @@
 import { Accounts, Logo, Transactions } from "@/view/components";
 import { UserMenu } from "@/view/components/UserMenu";
-import { DashboardProvider } from "./contexts";
+import { DashboardProvider } from "./contexts/DashboardProvider";
 import { Fab } from "./components/Fab";
+import { NewAccountModal, NewTransactionModal } from "./components/modals";
 
 export function Dashboard() {
   return (
@@ -30,6 +31,8 @@ export function Dashboard() {
           </section>
         </main>
         <Fab />
+        <NewAccountModal />
+        <NewTransactionModal />
       </div>
     </DashboardProvider>
   );
