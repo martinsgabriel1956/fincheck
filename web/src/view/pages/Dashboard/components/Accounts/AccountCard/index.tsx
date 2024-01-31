@@ -1,19 +1,20 @@
 import { formatCurrency } from "@/app/utils/formatCurrency";
 import { BankAccountTypeIcon } from "@/view/components";
-import { useAccountsController } from "../useAccountsController";
 import { cn } from "@/app/utils/cn";
+import { useDashboard } from "../../../contexts/useDashboard";
+import { BankAccount } from "@/app/entities/bankAccount";
 
 interface AccountCardProps {
-  color: string
-  name: string
-  balance: number
-  type: "CASH" | "CHECKING" | "INVESTMENT"
+  data: BankAccount
 }
 
-export function AccountCards({ balance, color, name, type }: AccountCardProps) {
+export function AccountCard({ data }: AccountCardProps) {
+  const { currentBalance, color, name, type } = data;
+
   const {
     areValuesVisible,
-  } = useAccountsController();
+    openEditAccountModal
+  } = useDashboard();
 
   return (
     <div
@@ -21,6 +22,8 @@ export function AccountCards({ balance, color, name, type }: AccountCardProps) {
       style={{
         borderColor: color
       }}
+      role="button"
+      onClick={() => openEditAccountModal(data)}
     >
       <header className="">
         <BankAccountTypeIcon
@@ -36,7 +39,7 @@ export function AccountCards({ balance, color, name, type }: AccountCardProps) {
             !areValuesVisible && "blur-sm"
           )}
         >
-          {formatCurrency(balance)}
+          {formatCurrency(currentBalance)}
         </span>
         <small
           className="text-sm text-gray-600"

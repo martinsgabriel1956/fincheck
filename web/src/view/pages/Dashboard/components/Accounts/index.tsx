@@ -1,6 +1,6 @@
 import { SwiperSlide, Swiper } from "swiper/react";
 import { EyeIcon } from "@/view/components/icons/EyeIcon";
-import { AccountCards } from "./AccountCards";
+import { AccountCard } from "./AccountCard";
 import { SliderNavigation } from "./SliderNavigation";
 import { useAccountsController } from "./useAccountsController";
 import "swiper/css";
@@ -18,7 +18,8 @@ export function Accounts() {
     toggleValuesVisibility,
     isLoading,
     accounts,
-    openNewAccountModal
+    openNewAccountModal,
+    currentBalance
   } = useAccountsController();
 
   return (
@@ -40,7 +41,7 @@ export function Accounts() {
                   !areValuesVisible && "blur-md"
                 )}
               >
-                {formatCurrency(1000)}
+                {formatCurrency(currentBalance)}
               </strong>
               <button
                 className="flex h-8 w-8 items-center justify-center"
@@ -95,30 +96,15 @@ export function Accounts() {
                     />
                   </div>
 
-                  <SwiperSlide>
-                    <AccountCards
-                      balance={1000.23}
-                      name="Nubank"
-                      color="#7950f2"
-                      type="CASH"
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <AccountCards
-                      balance={1000.23}
-                      name="XP"
-                      color="#333"
-                      type="INVESTMENT"
-                    />
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <AccountCards
-                      balance={1000.23}
-                      name="Carteira"
-                      color="#0F0"
-                      type="CHECKING"
-                    />
-                  </SwiperSlide>
+                  {accounts.map(account => (
+                    <SwiperSlide
+                      key={account.id}
+                    >
+                      <AccountCard
+                        data={account}
+                      />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             )}

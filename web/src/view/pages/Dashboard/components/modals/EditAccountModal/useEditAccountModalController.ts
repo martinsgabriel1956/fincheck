@@ -16,8 +16,8 @@ const bankAccountFormSchema = zod.object({
 
 type FormDataType = zod.infer<typeof bankAccountFormSchema>;
 
-export function useNewAccountModalController() {
-  const { isNewAccountModalOpen, closeNewAccountModal } = useDashboard();
+export function useEditAccountModalController() {
+  const { isEditAccountModalOpen, closeEditAccountModal } = useDashboard();
 
   const {
     handleSubmit: hookFormSubmit,
@@ -42,7 +42,7 @@ export function useNewAccountModalController() {
       });
       queryClient.invalidateQueries({ queryKey: ["bankAccounts"] });
       toast.success("Conta cadastrada com sucesso");
-      closeNewAccountModal();
+      closeEditAccountModal();
       reset();
     } catch (err) {
       toast.error("Erro ao cadastrar a conta");
@@ -50,8 +50,8 @@ export function useNewAccountModalController() {
   });
 
   return {
-    isNewAccountModalOpen,
-    closeNewAccountModal,
+    isEditAccountModalOpen,
+    closeEditAccountModal,
     register,
     errors,
     handleSubmit,
